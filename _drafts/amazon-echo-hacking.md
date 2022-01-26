@@ -81,8 +81,10 @@ Since none of the normal initialisation scripts have been ran the device would r
 ```
 You just rooted your echo. In the next step we're going to setup a simple reverse shell.
 
-### 5. Reverse shell
+### 5. Activating wifi
+We now need to bring up the wifi interface in order to download the ssh server. To do that just execute the following command:
 
+### 6. SSH Server
 
 > **Credits**:
 This project woudln't have been able without f-secure's awesome blog post. Describing the exploit in detail and 
