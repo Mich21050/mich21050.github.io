@@ -37,12 +37,12 @@ The uart connection is a must an cannot be omitted since you have to manually in
 _Wiring Diagram_
 
 ### 2. New base:
-I designed and printed a small alternative base which just bolts into place instead of the original one. It has a small gap to make routing the wires easier and to be able to normally put it onto your desk (stl in repo):
+I designed and printed a small alternative base which just bolts into place instead of the original one. It has a small gap which makes routing the wires easier.
 ![base](base.jpg){: width="700" height="400" }
 _3d printed base_
 
 ### 3. Flashing SD-Card:
-Pretty easy process. I used this [image](https://github.com/echohacking/wiki/wiki/Echo) from the echohacking repo and just used the dd command like so:
+Pretty easy process. I used this [image](https://github.com/echohacking/wiki/wiki/Echo) from the echohacking repo and just used the dd command like so. You could also use something like balenaEtcher but I would recommend using Linux for the whole process (a VM is sufficient).
 ```shell
 dd if=debian-sd.img of=/dev/sdX bs=8M; sync
 ```
@@ -53,7 +53,7 @@ Now comes the fun part. Booting your echo for the first time. Plug in your uart 
 If thats the case congrats! :)
 
 If you want to make your life  easy just use my rootEcho.sh script (you only need to change the active partition).
-The other option is to enter the commands per hand:
+The other option is to enter the commands per hand as described below:
 ```shell
 #list all mmc partitions
 mmc dev l
@@ -79,12 +79,59 @@ Since none of the normal initialisation scripts have been ran the device would r
 ```shell
 /usr/local/bin/watchdogd
 ```
-You just rooted your echo. In the next step we're going to setup a simple reverse shell.
+You just rooted your echo. In the next step we're going to install a simple ssh server.
 
 ### 5. Activating wifi
 We now need to bring up the wifi interface in order to download the ssh server. To do that just execute the following command:
+```shell
+#wifi setup commands here
+```
 
 ### 6. SSH Server
+First of all we need to download the ssh and sshd binaries. The easiest way in my experience is to just setup a simple ftp server on your machine and then just use wget to download the ssh directory. You can just download it to the echo's home directory and delete the whole folder after installing it.
+Before proceeding with the installtion we need to set a password for the root user since the ssh server won't start without one.
+```shell
+# set password for root user
+passwd
+```
+
+Now run the ssh install script and you should be almost done. The script copies all the relevant files to their respective locations. 
+We now need to add the correct ip table rule:
+```shell
+# ip table rule
+```
+
+The last step is to add the sshd start command to one of the startup scripts. I just appended it to the varlocal.sh script since it's run at the end of the boot process so everything the ssh server needs should be up and running.
+Just append the following command:
+```shell
+# start command
+```
+You can test the ssh server by starting it right now:
+```shell
+#starts ssh Server
+```
+Now try to connect to your echo. You should be able to log in as root with the above set password.
+Once you verified that your ssh server is up and running you can reboot the echo.
+Simply remove the micro SD-Card from the reader and reboot the echo (just disconnect and reconnect the power cable).
+
+### 7. The inner workings
+Your echo is basically just a simple linux computer with runs a few programs/daemons to enable the actuall alexa on it. 
+They all communicate on a virtual bus called __lipc__ which is basically a propiertary data format for the standard linux dbus. Due to that we can just use the dbus-monitor command to listen to all data sent over the bus:
+```shell
+dbus-monitor --system
+```
+You could now, for example, mute your echo and monitor the messages over the bus. 
+But it gets even better then that. The folks over at lab126 were kind enough to leave all of the lipc helper programs on the echo. So just type lipc and press tab two time and you're going to get a list of all available commands. Using them is really easy since they all take the --help argument.
+
+One really nice command is the lipc-discover commands. It takes a few arguments which are all described in the help section of it. It's going to take around 30 seconds to run but once it's done it returns a list of all lipc endpoints with their properties and methods. 
+A copy of the command output can be found in my [repo](https://github.com/Mich21050/EchoRooting/blob/main/dbusDebug/lipDisc.txt). 
+
+
+Don't be afraid to poke around your echo. You can't really damage anything so just try various lipc commands. A example lipc-send command is described below. 
+
+### 8. LED Ring
+
+
 
 > **Credits**:
 This project woudln't have been able without f-secure's awesome blog post. Describing the exploit in detail and 
