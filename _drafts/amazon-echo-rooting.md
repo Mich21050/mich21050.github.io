@@ -13,7 +13,7 @@ tags:
 - 3d print
 - root
 - linux
-img_path: "/img/echo-root"
+img_path: "/assets/img/echo-root"
 ---
 
 # Overview:
@@ -125,7 +125,7 @@ Now try to connect to your echo. You should be able to log in as root with the a
 Once you verified that your ssh server is up and running you can reboot the echo.
 Simply remove the micro SD-Card from the reader and reboot the echo (just disconnect and reconnect the power cable).
 
-## 7. The inner workings
+## 7. Lipc
 Your echo is basically just a simple linux computer with runs a few programs/daemons to enable the actuall alexa on it. 
 They all communicate on a virtual bus called __lipc__ which is basically a propiertary data format for the standard linux dbus. Due to that we can just use the dbus-monitor command to listen to all data sent over the bus:
 ```shell
