@@ -132,13 +132,13 @@ They all communicate on a virtual bus called __lipc__ which is basically a propi
 dbus-monitor --system
 ```
 You could now, for example, mute your echo and monitor the messages over the bus. 
-But it gets even better then that. The folks over at lab126 were kind enough to leave all of the lipc helper programs on the echo. So just type lipc and press tab two time and you're going to get a list of all available commands. Using them is really easy since they all take the --help argument.
+But it gets even better then that. The folks over at lab126 were kind enough to leave all of the lipc helper programs on the echo. So just type lipc and press tab two time and you're going to get a list of all available commands. Using them is really easy since they all take the `--help` argument.
 
-One really nice command is the lipc-discover commands. It takes a few arguments which are all described in the help section of it. It's going to take around 30 seconds to run but once it's done it returns a list of all lipc endpoints with their properties and methods. 
+One really nice command is the `lipc-discover` commands. It takes a few arguments which are all described in the help section of it. It's going to take around 30 seconds to run but once it's done it returns a list of all lipc endpoints with their properties and methods. 
 A copy of the command output can be found in my [repo](https://github.com/Mich21050/EchoRooting/blob/main/dbusDebug/lipDisc.txt). 
 
 
-Don't be afraid to poke around your echo. You can't really damage anything so just try various lipc commands. A example lipc-send command is described below. 
+Don't be afraid to poke around your echo. You can't really damage anything so just try various lipc commands. A example `lipc-send` command is described below. 
 
 # Working with your echo
 ## 1. LED Ring
