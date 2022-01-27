@@ -99,7 +99,7 @@ We now need to bring up the wifi interface in order to download the ssh server. 
 ```
 
 ## 6. SSH Server
-First of all we need to download the ssh and sshd binaries. The easiest way in my experience is to just setup a simple ftp server on your machine and then just use wget to download the ssh directory. You can just download it to the echo's home directory and delete the whole folder after installing it.
+First of all we need to download the ssh and sshd binaries. The easiest way in my experience is to just start up a simple ftp server on your machine and then just use wget to download the sshBin directory. You can just download it to the echo's home directory and delete the folder after installing it.
 Before proceeding with the installtion we need to set a password for the root user since the ssh server won't start without one.
 ```shell
 # set password for root user
