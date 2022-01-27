@@ -13,7 +13,7 @@ tags:
 - 3d print
 - root
 - linux
-img_path: "/img/echo-hacking"
+img_path: "/img/echo-root"
 ---
 
 # Overview:
@@ -35,7 +35,7 @@ The process roughly looks like that:
 5. root
 
 # Howto:
-### 1. Wiring
+## 1. Wiring
 The follwowing wiring diagram (credit to AndreRH) shows the two pinouts. In my case I was able to ommit two wires since I only need to establish an SPI connection (which need two less wires) inorder to intercept the boot process. The necessary data conncetions are the following:
 * SDMMC D0 → MISO
 * SDMMC D3 → !SS
@@ -47,19 +47,19 @@ The uart connection is a must an cannot be omitted since you have to manually in
 ![wiring](wiring.png)
 _Wiring Diagram_
 
-### 2. New base:
+## 2. New base
 I designed and printed a small alternative base which just bolts into place instead of the original one. It has a small gap which makes routing the wires easier.
 ![base](base.jpg){: width="700" height="400" }
 _3d printed base_
 
-### 3. Flashing SD-Card:
+## 3. Flashing SD-Card
 Pretty easy process. I used this [image](https://github.com/echohacking/wiki/wiki/Echo) from the echohacking repo and just used the dd command like so. You could also use something like balenaEtcher but I would recommend using Linux for the whole process (a VM is sufficient).
 ```shell
 dd if=debian-sd.img of=/dev/sdX bs=8M; sync
 ```
 You now could use something like fdisk to delete the unused partitions (all linux partitions) but you don't have too since the echo won't be able to boot from them anyway.
 
-### 4. Booting the echo
+## 4. Booting the echo
 Now comes the fun part. Booting your echo for the first time. Plug in your uart converter. Open a connection with a baud rate of 115200 (e.g putty), insert your sd card into the reader now plug in the power supply and pray. If everything worked you should now be able to hit enter and you should be presented with a uboot command line.
 If thats the case congrats! :)
 
@@ -92,13 +92,13 @@ Since none of the normal initialisation scripts have been ran the device would r
 ```
 You just rooted your echo. In the next step we're going to install a simple ssh server.
 
-### 5. Activating wifi
+## 5. Activating wifi
 We now need to bring up the wifi interface in order to download the ssh server. To do that just execute the following command:
 ```shell
 #wifi setup commands here
 ```
 
-### 6. SSH Server
+## 6. SSH Server
 First of all we need to download the ssh and sshd binaries. The easiest way in my experience is to just setup a simple ftp server on your machine and then just use wget to download the ssh directory. You can just download it to the echo's home directory and delete the whole folder after installing it.
 Before proceeding with the installtion we need to set a password for the root user since the ssh server won't start without one.
 ```shell
@@ -125,7 +125,7 @@ Now try to connect to your echo. You should be able to log in as root with the a
 Once you verified that your ssh server is up and running you can reboot the echo.
 Simply remove the micro SD-Card from the reader and reboot the echo (just disconnect and reconnect the power cable).
 
-### 7. The inner workings
+## 7. The inner workings
 Your echo is basically just a simple linux computer with runs a few programs/daemons to enable the actuall alexa on it. 
 They all communicate on a virtual bus called __lipc__ which is basically a propiertary data format for the standard linux dbus. Due to that we can just use the dbus-monitor command to listen to all data sent over the bus:
 ```shell
@@ -140,7 +140,9 @@ A copy of the command output can be found in my [repo](https://github.com/Mich21
 
 Don't be afraid to poke around your echo. You can't really damage anything so just try various lipc commands. A example lipc-send command is described below. 
 
-### 8. LED Ring
+# Working with your echo
+## 1. LED Ring
+
 
 
 
