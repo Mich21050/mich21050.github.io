@@ -14,7 +14,6 @@ tags:
 - root
 - linux
 img_path: "/assets/img/echo-root"
-date: 2022-01-28 20:28 +0100
 ---
 # Overview:
 I developed a habit of starting projects every winter break for the past few years. The following post documents this years project: **Rooting an Amazon Echo**
