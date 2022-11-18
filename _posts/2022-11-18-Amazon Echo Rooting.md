@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Amazon Echo Rooting
+date: 2022-11-18 12:00:00 -0100
 categories:
 - Projects
 - Hacking
